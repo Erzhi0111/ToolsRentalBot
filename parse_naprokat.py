@@ -9,6 +9,4 @@ def get_tools_list(tools_id=None):
 
 
 
-
-
-    
+ 

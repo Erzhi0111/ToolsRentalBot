@@ -9,9 +9,9 @@ token = '7043732039:AAEOdcCTISzF0YCJv1v6dk2vM4Dj4NsnisQ'
 bot = telebot.TeleBot(token=token, parse_mode=None)
 
 
-@bot.message_handler(commands=['start'])
+@bot.message_handler(commands=['start', 'main', 'hello'])
 def start(message):
-    bot.reply_to(message, 'Добро пожаловать в мир инструментов!')
+    bot.send_message(message.chat.id, f'Добро пожаловать в мир инструментов! {message.from_user.first_name}')
 
 
     markup = types.ReplyKeyboardMarkup(row_width=2)
@@ -50,4 +50,6 @@ def start(message):
     btn20, btn21, btn22, btn23, btn24, btn25, btn26, btn27, btn28, btn29, btn30)
 
     bot.send_message(message.chat.id, 'Выберите категорию', reply_markup=markup)
-   
+
+
+bot.polling(none_stop=True)
