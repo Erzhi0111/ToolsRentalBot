@@ -1,9 +1,5 @@
-
 import telebot
 from telebot import types
-
-from parse_naprokat import get_tools_list
-
 
 token = '7043732039:AAEOdcCTISzF0YCJv1v6dk2vM4Dj4NsnisQ'
 bot = telebot.TeleBot(token=token, parse_mode=None)
@@ -11,8 +7,17 @@ bot = telebot.TeleBot(token=token, parse_mode=None)
 
 @bot.message_handler(commands=['start', 'main', 'hello'])
 def start(message):
-    bot.send_message(message.chat.id, f'Добро пожаловать в мир инструментов! {message.from_user.first_name}')
+    bot.send_message(message.chat.id, f'Добро пожаловать в мир инструментов! {message.from_user.first_name}\n /menu \n Ссылка на наш сайт \n /site')
 
+
+
+@bot.message_handler(commands=['site'])
+def site(message):
+    bot.reply_to(message, f'Вот ссылка на наш сайт \n http://naprokat.kg')
+
+@bot.message_handler(commands=['menu'])
+def menu(message):
+    bot.send_message(message.chat.id, f'Вы в главном меню {message.from_user.first_name}')
 
     markup = types.ReplyKeyboardMarkup(row_width=2)
     btn1 = types.KeyboardButton('Генераторы')
@@ -52,4 +57,42 @@ def start(message):
     bot.send_message(message.chat.id, 'Выберите категорию', reply_markup=markup)
 
 
-bot.polling(none_stop=True)
+        
+# product_categories = {
+#     'Генераторы': 'elektrogeneratory',
+#     'Бетономешалки': 'betonomeshalki',
+#     'Алмазное бурение': 'almaznoe-burenie',
+#     'Лестницы и стремянки': 'lestnicy-i-stremyanki',
+#     'Домкраты гидравлические': 'domkraty-gidravlicheskie',
+#     'Трамбовки': 'trambovki',
+#     'Сварочные аппараты': 'svarochnye-apparaty',
+#     'Шуруповёрты': 'shurupoverty',
+#     'Строительные фены': 'stroitelnie-feny',
+#     'Лобзики': 'lobziki',
+#     'Миксер': 'miksery',
+#     'Болгарки': 'bolgarki',
+#     'Пилы и плиткорезы': 'pily-i-plitkorezy',
+#     'Дрели': 'dreli',
+#     'Штроборезы': 'shtroborezy',
+#     'Отбойные молотки': 'otboinye-molotki',
+#     'Трубогибы': 'trubogiby',
+#     'Углорез': 'ugloresy',
+#     'Пчелки': 'pchelki',
+#     'Перфораторы': 'perforatory',
+#     'Строительные пылесосы': 'stroitelnie-pylesosy',
+#     'Лазерные уровни': 'lazernye-urovni',
+#     'Детекторы проводки': 'detektory-provodki',
+#     'Компрессоры': 'kompressory',
+#     'Пистолеты': 'pistolety',
+#     'Бензобуры': 'benzobury',
+#     'Вибраторы глубинные': 'vibratory-glubinnye',
+#     'Триммеры': 'trimmery',
+#     'Тепловые пушки': 'teplovye-pushki',
+#     'Утюг': 'utyug',
+# }
+                
+@bot.message_handler(func=lambda x: True)
+def echoall(message):
+    bot.reply_to(message, f'GOOD JOB \n {message.text}')
+
+bot.polling()
